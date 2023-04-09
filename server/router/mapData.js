@@ -12,7 +12,7 @@ router.get("/truck", async (req, res) => {
     const trucks = await Trucks.find({});
 
     const positionArray = [];
-    const users=await User.find({userType:1})
+    const users = await User.find({ userType: 1 });
     trucks.map((truck) => {
       positionArray.push(truck.position);
     });
@@ -24,12 +24,15 @@ router.get("/truck", async (req, res) => {
 router.get("/dusbins", async (req, res) => {
   try {
     const dustbin = await Dusbins.find({});
+
     const positionArray = [];
+    const users = await User.find({ userType: 0 });
     dustbin.map((truck) => {
       positionArray.push(truck.position);
     });
-    res.json([dustbin, positionArray]);
+    res.json([users, positionArray]);
   } catch (error) {
+    console.log(error)
     res.json({ error: "Someting went wrong" });
   }
 });

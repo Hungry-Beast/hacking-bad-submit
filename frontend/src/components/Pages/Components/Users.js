@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import TruckMap from "../../Items/TruckMap";
+import DusbinMap from "../../Items/DusbinMap";
 import Table from "../../Items/Table";
 import { Modal } from "@mui/material";
 import SignupUsers from "./SignupUsers";
@@ -65,13 +66,13 @@ const Users = () => {
       .then((response) => response.json())
       .then((response) => {
         const driverData = [];
-        response.data[0].map((driver) => {
+        response[0].map((driver) => {
           let temp = driver;
           temp.id = temp._id;
           driverData.push(temp);
         });
         setDrivers(driverData);
-        setPosition(response.data[1]);
+        setPosition(response[1]);
       })
       .catch((error) => console.log("error", error));
   };
@@ -84,14 +85,14 @@ const Users = () => {
       <ComponentInside>
         <Title>Users</Title>
         <MapContainer>
-          <TruckMap />
+          <DusbinMap />
         </MapContainer>
         <TableContainer>
           <TableHeader>
             <TableTitle>Users</TableTitle>
             <TableButton onClick={handleOpen}>Add User</TableButton>
           </TableHeader>
-          <UserTable />
+          <UserTable drivers={drivers} positions={positions} />
         </TableContainer>
       </ComponentInside>
       <Modal

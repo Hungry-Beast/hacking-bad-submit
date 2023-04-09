@@ -24,7 +24,7 @@ const columns = [
   },
 ];
 
-export default function UserTable({ drivers }) {
+export default function UserTable({ drivers,positions }) {
   console.log(drivers);
   return (
     <Box sx={{ height: 400, width: "90%" }}>

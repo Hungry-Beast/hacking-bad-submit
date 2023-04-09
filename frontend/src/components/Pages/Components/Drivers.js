@@ -7,7 +7,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import SignupDriver from "./SignupDriver";
-import axios from "axios";
 import TruckTable from "../../Items/TruckTable";
 const Component = styled.div`
   width: 100%;
@@ -66,31 +65,29 @@ const Drivers = () => {
   const getDrivers = () => {
     const user =
       localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
-    let config = {
-      method: "get",
-      maxBodyLength: Infinity,
-      url: "http://localhost:5000/mapData/truck",
-      headers: {
-        Authorization: "Bearer " + user.token,
-        "Content-Type": "application/json",
-      },
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + user.token);
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
     };
 
-    axios
-      .request(config)
+    fetch("http://localhost:5000/mapData/truck", requestOptions)
+      .then((response) => response.json())
       .then((response) => {
         const driverData = [];
-        response.data[0].map((driver) => {
+        response[0].map((driver) => {
           let temp = driver;
           temp.id = temp._id;
           driverData.push(temp);
         });
         setDrivers(driverData);
-        setPosition(response.data[1]);
+        setPosition(response[1]);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.log("error", error));
   };
   useEffect(() => {
     getDrivers();

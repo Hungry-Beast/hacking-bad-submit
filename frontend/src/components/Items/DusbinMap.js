@@ -39,13 +39,6 @@ const TruckMap = ({ drivers }) => {
       console.log(coords);
     }
   }, [coords]);
-  let positionArray = [
-    [27.125904, 93.7400557],
-    [27.125214, 93.7400567],
-    [27.12504, 93.7400557],
-    [27.12504, 93.7400557],
-    [27.125914, 93.7400559],
-  ];
 
   return (
     <Component>
@@ -60,19 +53,12 @@ const TruckMap = ({ drivers }) => {
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
           <MarkerLayer draggable={true}>
-            {/* {positionArray.map((ele) => ( */}
             <Marker
               draggable={true}
-              position={
-                drivers && drivers.length == 2 && drivers[1].length
-                  ? drivers.position
-                  : [coords.latitude, coords.longitude]
-              }
+              position={[coords.latitude, coords.longitude]}
             >
-              {" "}
-              <FireTruckIcon color="primary" />
+              <DeleteIcon color="primary" />
             </Marker>
-            {/* ))} */}
           </MarkerLayer>
         </MapContainer>
       ) : (

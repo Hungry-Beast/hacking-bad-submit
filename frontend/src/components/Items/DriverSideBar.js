@@ -25,7 +25,7 @@ import {
   const Item = styled(Menu.Item)`
     color: white;
   `;
-  const Sidebar = ({key}) => {
+  const DriverSidebar = ({key}) => {
     const navigate = useNavigate();
     const onClick = (e) => {
       console.log("click ", e);

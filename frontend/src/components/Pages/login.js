@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 // import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import axios from "axios";
 // import { baseApi } from "../config";
 
 const Component = styled.div`
@@ -114,37 +113,36 @@ const Login = ({ setIsLogin, handleModalClose, setUser }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let data = JSON.stringify({
+    
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
       email: e.target.email.value,
       password: e.target.password.value,
     });
 
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "http://localhost:5000/auth/login",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
     };
 
-    axios
-      .request(config)
+    fetch("http://localhost:5000/auth/login", requestOptions)
+      .then((response) => response.json())
       .then((response) => {
-        console.log(JSON.stringify(response.data));
-        localStorage.setItem("user", JSON.stringify(response.data));
-        if (response.data.userType === 2) {
+        console.log(response);
+        localStorage.setItem("user", JSON.stringify(response));
+        if (response.userType === 2) {
           navigator("/home");
-        } else if (response.data.userType === 1) {
+        } else if (response.userType === 1) {
           navigator("/driver");
         } else {
           navigator("/user");
         }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.log("error", error));
   };
   return (
     <Form style={style} onSubmit={handleSubmit}>

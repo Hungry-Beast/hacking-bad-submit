@@ -72,8 +72,7 @@ const LowerMost = styled.div`
   justify-content: center;
   margin: 15px 0;
 `;
-const Backgrnd = styled.div`
-`;
+const Backgrnd = styled.div``;
 const style = {
   position: "absolute",
   top: "50%",
@@ -88,99 +87,63 @@ const style = {
 const Login = ({ setIsLogin, handleModalClose, setUser }) => {
   // const navigator = useNavigate();
   const [open, setOpen] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
 
- 
-
-  
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       setOpen(true);
-//       const resIni = await fetch(baseUrl + "/auth/login", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           email: e.target.email.value,
-//           password: e.target.password.value,
-//         }),
-//         redirect: "follow",
-//       });
-
-//       const res = await resIni.json();
-//       // console.log(resIni)
-//       setOpen(false);
-//       handleModalClose()
-//       if (resIni.status === 200) {
-
-//         localStorage.setItem("user", JSON.stringify(res));
-//         setUser(res);
-        
-//         return;
-//       }
-//       if (resIni.status === 401) {
-//         Swal.fire("Incoorect", "Incoorect  password or Username", "waning");
-//       }
-//     } catch (error) {
-//       setOpen(false);
-//       // if (error.response.status === 400) {
-//       //   Swal.fire("Incoorect  ", "Incoorect  password or Username", "error");
-//       //   return;
-//       // }
-//       handleModalClose()
-//       Swal.fire("Error", "Something went wrong", "error");
-//     }
-//   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsFilled(true);
+  };
   return (
     <Backgrnd>
-    <Navbar2/>
-    <Form style={style} 
-    // onSubmit={handleSubmit}
-    >
-      <Upper>
-        <Welcome>
-          <H>Hello User!</H>
-          <Mgs>Enter your dustbin content</Mgs>
-        </Welcome>
-        {/* <img src="./Vector2.png" alt="trash" /> */}
-      </Upper>
-      <Lower>
-        <InputField placeholder="In percentage %" name="percentage" />
-        
-        <SubmitButton type="submit" color="success" variant="contained">
-          Submit
-        </SubmitButton>
-      </Lower>
-      
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    </Form>
-    <Form style={style} 
-    // onSubmit={handleSubmit}
-    >
-      <Upper>
-        <Welcome>
-          <H>Thank You User!</H>
-          <Mgs>Appreciate your work</Mgs>
-        </Welcome>
-        {/* <img src="./Vector2.png" alt="trash" /> */}
-      </Upper>
-      <Lower>
-        <img src="./Done.png" alt="submitted" />
-      </Lower>
-      
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    </Form>
+      <Navbar2 />
+      {!isFilled ? (
+        <Form style={style} onSubmit={handleSubmit}>
+          <Upper>
+            <Welcome>
+              <H>Hello User!</H>
+              <Mgs>Enter your dustbin content</Mgs>
+            </Welcome>
+            {/* <img src="./Vector2.png" alt="trash" /> */}
+          </Upper>
+          <Lower>
+            <InputField placeholder="In percentage %" name="percentage" />
+
+            <SubmitButton type="submit" color="success" variant="contained">
+              Submit
+            </SubmitButton>
+          </Lower>
+
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={open}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </Form>
+      ) : (
+        <Form
+          style={style}
+          // onSubmit={handleSubmit}
+        >
+          <Upper>
+            <Welcome>
+              <H>Thank You User!</H>
+              <Mgs>Appreciate your work</Mgs>
+            </Welcome>
+            {/* <img src="./Vector2.png" alt="trash" /> */}
+          </Upper>
+          <Lower>
+            <img src="./Done.png" alt="submitted" />
+          </Lower>
+
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={open}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </Form>
+      )}
     </Backgrnd>
   );
 };

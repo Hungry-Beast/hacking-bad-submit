@@ -6,6 +6,7 @@ import Sidebar from "../Items/Sidebar";
 import Drivers from "./Components/Drivers";
 import Users from "./Components/Users";
 import DriverSidebar from "../Items/DriverSideBar";
+import DriverComponent from "./Components/DriverComponent";
 
 const Component = styled.div`
   display: flex;
