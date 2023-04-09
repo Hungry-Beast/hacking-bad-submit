@@ -6,7 +6,7 @@ const Component = styled.div``;
 const Home = () => {
   return (
     <Component>
-      {/* <Navbar /> */}
+    
     </Component>
   );
 };
