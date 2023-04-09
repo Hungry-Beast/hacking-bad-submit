@@ -15,6 +15,7 @@ import FireTruckIcon from "@mui/icons-material/FireTruck";
 
 import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 const Component = styled.div`
   width: 100%;
@@ -51,14 +52,19 @@ const TruckMap = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
-          <MarkerLayer>
-            <Marker position={[coords.latitude, coords.longitude]}>
+          <MarkerLayer draggable={true}>
+            <Marker
+              draggable={true}
+              position={[coords.latitude, coords.longitude]}
+            >
               <FireTruckIcon color="primary" />
             </Marker>
           </MarkerLayer>
-           </MapContainer>
+        </MapContainer>
       ) : (
-        <></>
+        <Backdrop open={!coords}>
+          <CircularProgress />
+        </Backdrop>
       )}
     </Component>
   );

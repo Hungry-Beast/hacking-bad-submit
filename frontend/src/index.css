@@ -14,5 +14,5 @@ code {
 .leaflet-container {
   width:900px;
   height: 511.5px;
-  margin: auto;
+  /* margin: auto; */
 }

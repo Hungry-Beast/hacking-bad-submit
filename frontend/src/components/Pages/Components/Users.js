@@ -10,12 +10,10 @@ const Component = styled.div`
   overflow-y: scroll;
 `;
 const ComponentInside = styled.div`
-    width: 90%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
 `;
-const Title = styled.h1`
-  
-`;
+const Title = styled.h1``;
 const MapContainer = styled.div`
   width: 100%;
   display: flex;
@@ -23,8 +21,24 @@ const MapContainer = styled.div`
   margin: 2rem 0;
 `;
 const TableContainer = styled.div``;
-const TableHeader = styled.h2`
+const TableHeader = styled.div`
   font-weight: bold;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const TableTitle = styled.h2`
+  font-weight: bold;
+`;
+const TableButton = styled.button`
+  all: unset;
+  height: 70%;
+  padding: 5px 15px;
+  background-color: lightgreen;
+  border-radius: 5px;
+  border: 1px solid black;
+
 `;
 const Users = () => {
   return (
@@ -35,7 +49,10 @@ const Users = () => {
           <TruckMap />
         </MapContainer>
         <TableContainer>
-          <TableHeader>Users</TableHeader>
+          <TableHeader>
+            <TableTitle>Users</TableTitle>
+            <TableButton>Add User</TableButton>
+          </TableHeader>
           <Table />
         </TableContainer>
       </ComponentInside>

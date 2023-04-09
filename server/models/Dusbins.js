@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
-const TrucksSchema = new mongoose.Schema({
+const DusbinsSchema = new mongoose.Schema({
   username: { type: String, required: true },
-    userId:{
-        type:mongoose.Schema.Types.ObjectId
-    },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
   location: {
     type: Object,
     required: true,
   },
-  carType: {
-    type: String,
+  weight: {
+    type: Number,
   },
 });
 
-module.exports = mongoose.model("Trucks", TrucksSchema);
+module.exports = mongoose.model("Dusbins", DusbinsSchema);
