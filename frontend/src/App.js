@@ -10,7 +10,12 @@ import HomeUsers from "./components/Pages/HomeUsers";
 import HomeDrivers from "./components/Pages/HomeDrivers";
 import DashBoard from "./components/Pages/DashBoard";
 import Login from "./components/Pages/login";
+<<<<<<< HEAD
 import Signup from "./components/Pages/Components/SignupDriver";
+=======
+import Signup from "./components/Pages/Signup";
+import Userpage from "./components/Pages/Userpage";
+>>>>>>> 791d4d988dabe8bd116c8bd46267736a6c991e6e
 
 const Component = styled.div`
   width: 100%;
