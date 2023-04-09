@@ -10,11 +10,13 @@ const router = express.Router();
 router.get("/truck", async (req, res) => {
   try {
     const trucks = await Trucks.find({});
+
     const positionArray = [];
+    const users=await User.find({userType:1})
     trucks.map((truck) => {
       positionArray.push(truck.position);
     });
-    res.json([trucks, positionArray]);
+    res.json([users, positionArray]);
   } catch (error) {
     res.json({ error: "Someting went wrong" });
   }

@@ -24,7 +24,7 @@ const Component = styled.div`
   align-items: center;
 `;
 
-const TruckMap = () => {
+const TruckMap = ({ drivers }) => {
   const [position, setPosition] = useState(null);
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
@@ -45,7 +45,7 @@ const TruckMap = () => {
       {coords ? (
         <MapContainer
           center={coords ? [coords.latitude, coords.longitude] : [45.4, -75.7]}
-          zoom={12}
+          zoom={13}
           scrollWheelZoom={false}
         >
           <TileLayer
@@ -55,14 +55,18 @@ const TruckMap = () => {
           <MarkerLayer draggable={true}>
             <Marker
               draggable={true}
-              position={[coords.latitude, coords.longitude]}
+              position={
+                drivers && drivers.length == 2 && drivers[1].length
+                  ? drivers.position
+                  : [coords.latitude, coords.longitude]
+              }
             >
               <FireTruckIcon color="primary" />
             </Marker>
           </MarkerLayer>
         </MapContainer>
       ) : (
-        <Backdrop open={!coords}>
+        <Backdrop open={false}>
           <CircularProgress />
         </Backdrop>
       )}

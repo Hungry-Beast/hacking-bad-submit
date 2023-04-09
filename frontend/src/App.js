@@ -10,7 +10,7 @@ import HomeUsers from "./components/Pages/HomeUsers";
 import HomeDrivers from "./components/Pages/HomeDrivers";
 import DashBoard from "./components/Pages/DashBoard";
 import Login from "./components/Pages/login";
-import Signup from "./components/Pages/Signup";
+import Signup from "./components/Pages/Components/SignupDriver";
 
 const Component = styled.div`
   width: 100%;
@@ -21,17 +21,16 @@ const Component = styled.div`
 
 function App() {
   return (
-    // <Component>
-    //   <Routes>
-    //     <Route path="/login" element={<Login/>}/>
-    //     <Route path="/" extact element={<Dashboard/>} />
+    <Component>
+      <Routes>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/" extact element={<DashBoard/>} />
 
-    //     <Route path="/home" element={<HomeSetRoutes key={1} />} />
-    //     <Route path="/home/users" element={<HomeUsers key={2}  />} />
-    //     <Route path="/home/drivers" element={<HomeDrivers key={3} />} />
-    //   </Routes>
-    // </Component>
-    <Signup/>
+        <Route path="/home" element={<HomeSetRoutes key={1} />} />
+        <Route path="/home/users" element={<HomeUsers key={2}  />} />
+        <Route path="/home/drivers" element={<HomeDrivers key={3} />} />
+      </Routes>
+    </Component>
   );
 }
 

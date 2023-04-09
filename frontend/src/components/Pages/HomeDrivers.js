@@ -14,12 +14,12 @@ const Component = styled.div`
   height: 100%;
   align-items: center;
 `;
-const HomeDrivers = ({key}) => {
+const HomeDrivers = ({ key }) => {
   return (
     <Component>
       <Sidebar key={key} />
 
-      <Users />
+      <Drivers />
     </Component>
   );
 };

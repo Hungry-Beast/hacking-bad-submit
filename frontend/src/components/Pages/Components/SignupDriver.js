@@ -9,11 +9,10 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 // import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import axios from "axios";
+import { baseUrl } from "../../../config";
 // import { baseApi } from "../config";
 
 const Component = styled.div`
@@ -55,6 +54,13 @@ const Lower = styled.div`
   justify-content: center;
   /* padding: 20px 40px; */
 `;
+const LowerMid = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+`;
 const InputField = styled(TextField)`
   width: 80%;
   margin: 10px 0 !important;
@@ -73,8 +79,12 @@ const LowerMost = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 15px 0;
+  justify-content: space-evenly;
+  /* margin: 12px 0; */
+`;
+const Question = styled.button`
+  /* padding: 0.5 rem; */
+  margin: 0 0.3em;
 `;
 const style = {
   position: "absolute",
@@ -87,8 +97,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const Login = ({ setIsLogin, handleModalClose, setUser }) => {
-  const navigator = useNavigate();
+const SignupDriver = ({ getDrivers, handleModalClose }) => {
+  // const navigator = useNavigate();
   const [open, setOpen] = useState(false);
 
   const [values, setValues] = useState({
@@ -111,51 +121,62 @@ const Login = ({ setIsLogin, handleModalClose, setUser }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let data = JSON.stringify({
-      email: e.target.email.value,
-      password: e.target.password.value,
-    });
+    try {
+      setOpen(true);
 
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "http://localhost:5000/auth/login",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        localStorage.setItem("user", JSON.stringify(response.data));
-        if (response.data.userType === 2) {
-          navigator("/home");
-        } else if (response.data.userType === 1) {
-          navigator("/driver");
-        } else {
-          navigator("/user");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+      var raw = JSON.stringify({
+        name: e.target.name.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+        carType: e.target.carType.value,
+        userType: "1",
       });
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch("http://localhost:5000/auth/signup", requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          setOpen(false);
+          getDrivers();
+          console.log(result);
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      setOpen(false);
+      console.log(error);
+      // if (error.response.status === 400) {
+      //   Swal.fire("Incoorect  ", "Incoorect  password or Username", "error");
+      //   return;
+      // }
+
+      handleModalClose();
+      Swal.fire("Error", "Something went wrong", "error");
+    }
   };
   return (
     <Form style={style} onSubmit={handleSubmit}>
       <Upper>
         <Welcome>
-          <H>Welcome Back</H>
-          <Mgs>Login to continue</Mgs>
+          <H>Hi!</H>
+          <Mgs>Create a Driver Account</Mgs>
         </Welcome>
       </Upper>
       <Lower>
+        <InputField placeholder="User Name" name="name" />
         <InputField placeholder="Email" name="email" />
+        <InputField placeholder="Car Type" name="carType" />
+
         <InputFieldPassword
           id="outlined-adornment-password"
           name="password"
@@ -180,21 +201,9 @@ const Login = ({ setIsLogin, handleModalClose, setUser }) => {
           Submit
         </SubmitButton>
       </Lower>
-      <LowerMost>
-        Doesn't have account
-        <br />
-        <Button
-          sx={{
-            m: "0",
-            p: "0",
-          }}
-          onClick={() => setIsLogin(false)}
-        >
-          Click here
-        </Button>
-        {/* Click here */}
-        {/* </Link> */}
-      </LowerMost>
+
+      {/* Click here */}
+      {/* </Link> */}
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
@@ -205,4 +214,4 @@ const Login = ({ setIsLogin, handleModalClose, setUser }) => {
   );
 };
 
-export default Login;
+export default SignupDriver;

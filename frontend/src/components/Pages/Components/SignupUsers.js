@@ -12,6 +12,7 @@ import React, { useState } from "react";
 // import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
+import { baseUrl } from "../../../config";
 // import { baseApi } from "../config";
 
 const Component = styled.div`
@@ -54,11 +55,11 @@ const Lower = styled.div`
   /* padding: 20px 40px; */
 `;
 const LowerMid = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
 `;
 const InputField = styled(TextField)`
   width: 80%;
@@ -82,8 +83,8 @@ const LowerMost = styled.div`
   /* margin: 12px 0; */
 `;
 const Question = styled.button`
-    /* padding: 0.5 rem; */
-    margin: 0 0.3em;
+  /* padding: 0.5 rem; */
+  margin: 0 0.3em;
 `;
 const style = {
   position: "absolute",
@@ -96,7 +97,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const Login = ({ setIsLogin, handleModalClose, setUser }) => {
+const SignupUsers = ({ getDrivers, handleModalClose }) => {
   // const navigator = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -120,64 +121,61 @@ const Login = ({ setIsLogin, handleModalClose, setUser }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       setOpen(true);
-//       const resIni = await fetch(baseUrl + "/auth/login", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           email: e.target.email.value,
-//           password: e.target.password.value,
-//         }),
-//         redirect: "follow",
-//       });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setOpen(true);
 
-//       const res = await resIni.json();
-//       // console.log(resIni)
-//       setOpen(false);
-//       handleModalClose()
-//       if (resIni.status === 200) {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
-//         localStorage.setItem("user", JSON.stringify(res));
-//         setUser(res);
-        
-//         return;
-//       }
-//       if (resIni.status === 401) {
-//         Swal.fire("Incoorect", "Incoorect  password or Username", "waning");
-//       }
-//     } catch (error) {
-//       setOpen(false);
-//       // if (error.response.status === 400) {
-//       //   Swal.fire("Incoorect  ", "Incoorect  password or Username", "error");
-//       //   return;
-//       // }
-//       handleModalClose()
-//       Swal.fire("Error", "Something went wrong", "error");
-//     }
-//   };
+      var raw = JSON.stringify({
+        name: e.target.name.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+        carType: e.target.weight.value,
+        userType: "0",
+      });
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch("http://localhost:5000/auth/signup", requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          setOpen(false);
+          getDrivers();
+          console.log(result);
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      setOpen(false);
+      console.log(error);
+      // if (error.response.status === 400) {
+      //   Swal.fire("Incoorect  ", "Incoorect  password or Username", "error");
+      //   return;
+      // }
+
+      handleModalClose();
+      Swal.fire("Error", "Something went wrong", "error");
+    }
+  };
   return (
-    <Form style={style} 
-    // onSubmit={handleSubmit}
-    >
+    <Form style={style} onSubmit={handleSubmit}>
       <Upper>
         <Welcome>
-          <H>Welcome!</H>
-          <Mgs>Signup to continue</Mgs>
+          <H>Hi!</H>
+          <Mgs>Create a User Account</Mgs>
         </Welcome>
       </Upper>
       <Lower>
-        <InputField placeholder="User Name" name="user name" />
+        <InputField placeholder="User Name" name="name" />
         <InputField placeholder="Email" name="email" />
-
-        <LowerMid>
-            <Question>Public account</Question>
-            <Question>Driver's account</Question>
-        </LowerMid>
+        <InputField placeholder="Weight" name="weight" />
 
         <InputFieldPassword
           id="outlined-adornment-password"
@@ -203,21 +201,9 @@ const Login = ({ setIsLogin, handleModalClose, setUser }) => {
           Submit
         </SubmitButton>
       </Lower>
-      <LowerMost>
-        Doesn't have account
-        <br />
-        <Button
-          sx={{
-            m: "0",
-            p: "0",
-          }}
-          onClick={() => setIsLogin(false)}
-        >
-          Click here
-        </Button>
-        {/* Click here */}
-        {/* </Link> */}
-      </LowerMost>
+
+      {/* Click here */}
+      {/* </Link> */}
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
@@ -228,4 +214,4 @@ const Login = ({ setIsLogin, handleModalClose, setUser }) => {
   );
 };
 
-export default Login;
+export default SignupUsers;

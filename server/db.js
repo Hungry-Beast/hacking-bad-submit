@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-// mongoose_URI = "mongodb://localhost:27017/shristi";
-mongoose_URI =
-  "mongodb+srv://user:user@cluster0.wmppfvf.mongodb.net/?retryWrites=true&w=majority";
+mongoose_URI = "mongodb://localhost:27017/hackingbad";
+// mongoose_URI =
+//   "mongodb+srv://user:user@cluster0.wmppfvf.mongodb.net/?retryWrites=true&w=majority";
 // >>>>>>> development
 
 mongoConnect = async () => {

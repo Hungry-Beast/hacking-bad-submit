@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import TruckMap from "../../Items/TruckMap";
 import Table from "../../Items/Table";
+import { Modal } from "@mui/material";
+import SignupUsers from "./SignupUsers";
+import UserTable from "../../Items/UserTable";
 
 const Component = styled.div`
   width: 100%;
@@ -38,9 +41,44 @@ const TableButton = styled.button`
   background-color: lightgreen;
   border-radius: 5px;
   border: 1px solid black;
-
 `;
 const Users = () => {
+  const [open, setOpen] = useState(false);
+  const [drivers, setDrivers] = useState([]);
+  const [positions, setPosition] = useState([]);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const getDrivers = () => {
+    const user =
+      localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer " + user.token);
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:5000/mapData/dusbins", requestOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        const driverData = [];
+        response.data[0].map((driver) => {
+          let temp = driver;
+          temp.id = temp._id;
+          driverData.push(temp);
+        });
+        setDrivers(driverData);
+        setPosition(response.data[1]);
+      })
+      .catch((error) => console.log("error", error));
+  };
+  useEffect(() => {
+    getDrivers();
+  }, []);
+
   return (
     <Component>
       <ComponentInside>
@@ -51,11 +89,19 @@ const Users = () => {
         <TableContainer>
           <TableHeader>
             <TableTitle>Users</TableTitle>
-            <TableButton>Add User</TableButton>
+            <TableButton onClick={handleOpen}>Add User</TableButton>
           </TableHeader>
-          <Table />
+          <UserTable />
         </TableContainer>
       </ComponentInside>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <SignupUsers handleModalClose={handleClose} getDrivers={getDrivers} />
+      </Modal>
     </Component>
   );
 };
