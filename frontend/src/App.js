@@ -11,6 +11,7 @@ import HomeDrivers from "./components/Pages/HomeDrivers";
 import DashBoard from "./components/Pages/DashBoard";
 import Login from "./components/Pages/login";
 import Signup from "./components/Pages/Signup";
+import Userpage from "./components/Pages/Userpage";
 
 const Component = styled.div`
   width: 100%;
@@ -31,7 +32,9 @@ function App() {
     //     <Route path="/home/drivers" element={<HomeDrivers key={3} />} />
     //   </Routes>
     // </Component>
-    <Signup/>
+    // <Signup/>
+    // <Userpage/>
+    <DashBoard/>
   );
 }
 
