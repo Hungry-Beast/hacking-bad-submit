@@ -3,9 +3,52 @@ import styled from "styled-components";
 import { Switch, Dropdown, Space, Badge } from "antd";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
+
 const Component = styled.div`
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding:0rem 10rem;
+  padding-bottom: 0.2rem;
+  background-color: transparent;  
+  overflow: hidden;
 `;
+const Logo = styled.div`
+  font-family: 'roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 3rem;
+`;
+
+const Nav = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 2em;
+`
+const Home = styled.div`
+  font-size: 1rem;
+  padding: 1rem;
+`
+const ContactUs = styled.div`
+  font-size: 1rem;
+  padding: 1rem;
+`
+const AboutUS = styled.div`
+  font-size: 1rem;
+  padding: 1em;
+
+`;
+const SignUPbutton = styled.div`
+  background-color: #FF7426;
+  color: #fff;
+  padding: 0.5em 1.5em;
+  font-size: 1em;
+  margin: 0.5em;
+`;
+
 const LeftComponent = styled.div``;
 const Menu = styled.img``;
 const LogoContainer = styled.div``;
@@ -13,14 +56,14 @@ const LogoImage = styled.img``;
 const LogoTitle = styled.div``;
 const CustomDropdown = styled(Dropdown)``;
 
-const RightComponent = styled.div``;
-const SearchContainer = styled.div``;
+const RightComponent = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+`;
 
-const ProfileIcon = styled.img``;
-const CipherPointsContainer = styled.div``;
-const PointsIcon = styled.img``;
-const Points = styled.div``;
-const ModeChanger = styled(Switch)``;
+
 const Navbar = () => {
   const items = [
     {
@@ -71,34 +114,18 @@ const Navbar = () => {
   return (
     <Component>
       <LeftComponent>
-        <Menu src="/menu.svg" />
         <LogoContainer>
-          <LogoImage src="/Logo.png" />
-          <LogoTitle>Cipher School</LogoTitle>
+          <Logo>WM</Logo>
         </LogoContainer>
-        {/* <CustomDropdown> */}
-        <CustomDropdown menu={{ items }}>
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              Hover me
-              {/* <DownOutlined /> */}
-            </Space>
-          </a>
-        </CustomDropdown>
-        {/* </CustomDropdown> */}
+        
       </LeftComponent>
       <RightComponent>
-        <SearchContainer>
-
-        </SearchContainer>
-        <Badge count="3">
-
-        <NotificationsIcon />
-
-        </Badge>
-        <CipherPointsContainer>
-            <PointsIcon src="/cipherPoints.svg"/>
-        </CipherPointsContainer>
+          <Nav>
+            <Home onClick={()=>{}}>Home</Home>
+            <AboutUS>About us</AboutUS>
+            <ContactUs>Contact Us</ContactUs>
+          </Nav>
+          <SignUPbutton>Sign in</SignUPbutton>
       </RightComponent>
     </Component>
   );
