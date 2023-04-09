@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { Switch, Dropdown, Space, Badge } from "antd";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
-const Component = styled.div``;
+const Component = styled.div`
+  
+`;
 const LeftComponent = styled.div``;
 const Menu = styled.img``;
 const LogoContainer = styled.div``;
