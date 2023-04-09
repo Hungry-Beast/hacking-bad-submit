@@ -1,7 +1,7 @@
 const express = require("express");
 const auth = require("./router/auth");
-const db = require("./db");
-
+const mongoConnect = require("./db");
+mongoConnect();
 const app = express();
 app.use(express.json({ limit: "10mb", extended: true }));
 app.use(

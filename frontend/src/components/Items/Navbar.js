@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Switch, Dropdown, Space, Badge } from "antd";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
+
 const Component = styled.div`
   display: flex;
   flex-direction: row;
@@ -120,7 +121,7 @@ const Navbar = () => {
       </LeftComponent>
       <RightComponent>
           <Nav>
-            <Home>Home</Home>
+            <Home onClick={()=>{}}>Home</Home>
             <AboutUS>About us</AboutUS>
             <ContactUs>Contact Us</ContactUs>
           </Nav>
